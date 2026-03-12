@@ -129,8 +129,29 @@ export default function HomePage() {
 
   const slide = heroSlides[activeSlide];
 
-  const { data: featuredTours }         = useQuery('featured-tours',        () => toursAPI.getFeatured().then(r => r.data.data));
-  const { data: featuredDestinations }  = useQuery('featured-destinations', () => destinationsAPI.getFeatured().then(r => r.data.data));
+  const { data: featuredToursRaw }         = useQuery('featured-tours',        () => toursAPI.getFeatured().then(r => r.data.data), { retry: 1 });
+  const { data: featuredDestinationsRaw }  = useQuery('featured-destinations', () => destinationsAPI.getFeatured().then(r => r.data.data), { retry: 1 });
+
+  const STATIC_DESTINATIONS = [
+    { id: 1, slug: 'masai-mara',             name: 'Masai Mara',         country: 'Kenya',    tour_count: 8,  cover_image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80' },
+    { id: 2, slug: 'serengeti-national-park',name: 'Serengeti',          country: 'Tanzania', tour_count: 6,  cover_image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80' },
+    { id: 3, slug: 'zanzibar-island',         name: 'Zanzibar Island',    country: 'Tanzania', tour_count: 5,  cover_image: 'https://images.unsplash.com/photo-1586861203927-800a5acdcc4d?w=600&q=80' },
+    { id: 4, slug: 'victoria-falls',          name: 'Victoria Falls',     country: 'Zimbabwe', tour_count: 4,  cover_image: 'https://images.unsplash.com/photo-1632793070527-a1bec39ec000?w=600&q=80' },
+    { id: 5, slug: 'cape-town',               name: 'Cape Town',          country: 'South Africa', tour_count: 7, cover_image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&q=80' },
+    { id: 6, slug: 'diani-beach',             name: 'Diani Beach',        country: 'Kenya',    tour_count: 4,  cover_image: 'https://images.unsplash.com/photo-1559628233-100c798642c5?w=600&q=80' },
+  ];
+
+  const STATIC_TOURS = [
+    { id: 1, slug: 'masai-mara-wildebeest-migration', title: 'Masai Mara Wildebeest Migration Safari', category: 'safari',    price_per_person: 2400, duration_days: 7, destination_name: 'Masai Mara', country: 'Kenya',    rating_avg: 4.9, review_count: 124, cover_image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600&q=80' },
+    { id: 2, slug: 'serengeti-great-migration',        title: 'Serengeti Great Migration Safari',       category: 'safari',    price_per_person: 2800, duration_days: 8, destination_name: 'Serengeti',  country: 'Tanzania', rating_avg: 4.9, review_count: 210, cover_image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600&q=80' },
+    { id: 3, slug: 'zanzibar-beach-retreat',           title: 'Zanzibar Spice Island Beach Retreat',    category: 'beach',     price_per_person: 1200, duration_days: 5, destination_name: 'Zanzibar',   country: 'Tanzania', rating_avg: 4.8, review_count: 98,  cover_image: 'https://images.unsplash.com/photo-1586861203927-800a5acdcc4d?w=600&q=80' },
+    { id: 4, slug: 'victoria-falls-adventure',         title: 'Victoria Falls Adventure & Rafting',     category: 'adventure', price_per_person: 1600, duration_days: 4, destination_name: 'Victoria Falls', country: 'Zimbabwe', rating_avg: 4.8, review_count: 76, cover_image: 'https://images.unsplash.com/photo-1632793070527-a1bec39ec000?w=600&q=80' },
+    { id: 5, slug: 'cape-town-explorer',               title: 'Cape Town Explorer & Winelands Tour',    category: 'city',      price_per_person: 1900, duration_days: 6, destination_name: 'Cape Town',  country: 'South Africa', rating_avg: 4.9, review_count: 152, cover_image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&q=80' },
+    { id: 6, slug: 'amboseli-elephant-safari',         title: 'Amboseli Elephant Safari & Kilimanjaro', category: 'safari',    price_per_person: 1800, duration_days: 5, destination_name: 'Amboseli',   country: 'Kenya',    rating_avg: 4.8, review_count: 88,  cover_image: 'https://images.unsplash.com/photo-1612178537253-bccd437b730e?w=600&q=80' },
+  ];
+
+  const featuredDestinations = featuredDestinationsRaw?.length ? featuredDestinationsRaw : STATIC_DESTINATIONS;
+  const featuredTours         = featuredToursRaw?.length         ? featuredToursRaw         : STATIC_TOURS;
 
   return (
     <Layout>
