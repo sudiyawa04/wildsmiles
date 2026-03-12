@@ -178,29 +178,83 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-dark"
+            className="fixed inset-0 z-[9999] overflow-hidden bg-[#06120d]"
           >
             <motion.div
-              animate={{ scale: [1, 1.08, 1], opacity: [0.85, 1, 0.85] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Image
-                src="/images/logowild.png"
-                alt="WildSmiles"
-                width={180}
-                height={54}
-                className="w-44 md:w-56 drop-shadow-2xl"
-                priority
-              />
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="mt-6 text-white/60 text-sm tracking-widest uppercase font-medium"
-            >
-              Africa&apos;s Premier Travel Experience
-            </motion.p>
+              animate={{ x: ['-8%', '8%', '-8%'], y: ['-6%', '4%', '-6%'] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-primary-500/20 blur-3xl"
+            />
+            <motion.div
+              animate={{ x: ['10%', '-10%', '10%'], y: ['8%', '-4%', '8%'] }}
+              transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -right-24 bottom-10 h-80 w-80 rounded-full bg-amber-400/20 blur-3xl"
+            />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_45%)]" />
+            <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:56px_56px]" />
+
+            <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.86, rotate: -8 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className="relative"
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.08, 1], opacity: [0.45, 0.9, 0.45] }}
+                  transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                  className="absolute inset-0 rounded-[2rem] bg-gradient-to-r from-primary-500/30 via-amber-300/20 to-primary-400/30 blur-2xl"
+                />
+                <motion.div
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+                  className="absolute -inset-5 rounded-[2.2rem] border border-white/10 border-t-primary-300/60 border-r-amber-300/50"
+                />
+                <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/6 px-8 py-7 backdrop-blur-xl shadow-[0_30px_120px_rgba(0,0,0,0.45)]">
+                  <motion.div
+                    animate={{ x: ['-120%', '140%'] }}
+                    transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+                    className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg]"
+                  />
+                  <motion.div
+                    animate={{ scale: [1, 1.04, 1], opacity: [0.92, 1, 0.92] }}
+                    transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <Image
+                      src="/images/logowild.png"
+                      alt="WildSmiles"
+                      width={220}
+                      height={66}
+                      className="relative z-10 w-48 md:w-64 drop-shadow-2xl"
+                      priority
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.8, ease: 'easeOut' }}
+                className="mt-8"
+              >
+                <p className="text-[10px] font-semibold uppercase tracking-[0.55em] text-primary-200/80 md:text-xs">
+                  WildSmiles Tours & Travel
+                </p>
+                <h2 className="mt-4 max-w-3xl font-display text-3xl font-bold leading-tight text-white md:text-5xl">
+                  Opening the gate to East Africa&apos;s boldest journeys
+                </h2>
+                <motion.div
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 120, opacity: 1 }}
+                  transition={{ delay: 0.8, duration: 0.7, ease: 'easeOut' }}
+                  className="mx-auto mt-5 h-px bg-gradient-to-r from-transparent via-amber-300 to-transparent"
+                />
+                <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-white/65 md:text-base">
+                  Safaris, coastlines, culture, and unforgettable stories are loading.
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
