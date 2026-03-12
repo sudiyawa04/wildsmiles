@@ -7,6 +7,7 @@ import { HiLocationMarker, HiExclamationCircle } from 'react-icons/hi';
 import Layout from '../../components/layout/Layout';
 import TourCard from '../../components/tours/TourCard';
 import { destinationsAPI, toursAPI } from '../../lib/api';
+import { STATIC_DESTINATIONS, STATIC_TOURS } from '../../lib/staticData';
 
 export default function DestinationDetailPage() {
   const router = useRouter();
@@ -24,11 +25,16 @@ export default function DestinationDetailPage() {
     { enabled: !!destData?.id }
   );
 
+  const staticDest = STATIC_DESTINATIONS[slug];
+  const staticTours = staticDest
+    ? Object.values(STATIC_TOURS).filter(t => t.destination_name?.toLowerCase() === staticDest?.name?.toLowerCase()).slice(0, 6)
+    : [];
+
   if (destLoading) return (
     <Layout><div className="container-wide pt-28 pb-12"><div className="skeleton h-96 rounded-2xl" /></div></Layout>
   );
 
-  if (error || !destData) return (
+  if ((error || !destData) && !staticDest) return (
     <Layout>
       <div className="flex flex-col items-center justify-center min-h-screen gap-4">
         <HiExclamationCircle className="w-12 h-12 text-red-400" />
@@ -38,8 +44,8 @@ export default function DestinationDetailPage() {
     </Layout>
   );
 
-  const dest = destData;
-  const tours = toursData?.data || [];
+  const dest = destData || staticDest;
+  const tours = toursData?.data?.length ? toursData.data : staticTours;
 
   return (
     <Layout>

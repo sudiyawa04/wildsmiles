@@ -6,6 +6,7 @@ import { HiFilter, HiX, HiAdjustments } from 'react-icons/hi';
 import Layout from '../../components/layout/Layout';
 import TourCard from '../../components/tours/TourCard';
 import { toursAPI } from '../../lib/api';
+import { STATIC_TOURS } from '../../lib/staticData';
 import clsx from 'clsx';
 
 const CATEGORIES = ['safari','adventure','cultural','city','nature','beach','mountain','wildlife','historical','food'];
@@ -37,11 +38,16 @@ export default function ToursPage() {
     }
   }, [router.isReady]);
 
-  const { data, isLoading } = useQuery(
+  const { data: apiData, isLoading } = useQuery(
     ['tours', filters],
     () => toursAPI.getAll(filters).then(r => r.data),
-    { keepPreviousData: true }
+    { keepPreviousData: true, retry: 1 }
   );
+
+  const STATIC_TOURS_LIST = Object.values(STATIC_TOURS);
+  const data = apiData?.data?.length
+    ? apiData
+    : isLoading ? null : { data: STATIC_TOURS_LIST, pagination: { total: STATIC_TOURS_LIST.length, pages: 1, page: 1 } };
 
   const setFilter = (key, value) => {
     setFilters(f => ({ ...f, [key]: value, page: 1 }));
@@ -247,6 +253,7 @@ export default function ToursPage() {
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
                   {data?.data?.map((tour) => <TourCard key={tour.id} tour={tour} />)}
+
                 </div>
 
                 {/* Pagination */}

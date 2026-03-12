@@ -6,10 +6,11 @@ import Link from 'next/link';
 import { HiLocationMarker, HiGlobe, HiStar } from 'react-icons/hi';
 import Layout from '../../components/layout/Layout';
 import { destinationsAPI } from '../../lib/api';
+import { STATIC_DESTINATIONS } from '../../lib/staticData';
 
 export default function DestinationsPage() {
-  const { data, isLoading } = useQuery('destinations', () => destinationsAPI.getAll().then(r => r.data));
-  const destinations = data?.data || [];
+  const { data, isLoading } = useQuery('destinations', () => destinationsAPI.getAll().then(r => r.data), { retry: 1 });
+  const destinations = data?.data?.length ? data.data : Object.values(STATIC_DESTINATIONS);
 
   return (
     <Layout>

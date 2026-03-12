@@ -15,6 +15,7 @@ import Layout from '../../components/layout/Layout';
 import ReviewCard from '../../components/reviews/ReviewCard';
 import { toursAPI, bookingsAPI } from '../../lib/api';
 import { useAuth } from '../../context/AuthContext';
+import { STATIC_TOURS } from '../../lib/staticData';
 import { toast } from 'react-toastify';
 import clsx from 'clsx';
 
@@ -53,7 +54,9 @@ export default function TourDetailPage() {
     }
   );
 
-  if (isLoading) return (
+  const staticTour = STATIC_TOURS[slug];
+
+  if (isLoading && !staticTour) return (
     <Layout>
       <div className="pt-24 pb-12 container-wide">
         <div className="skeleton h-96 rounded-2xl mb-6" />
@@ -68,7 +71,7 @@ export default function TourDetailPage() {
     </Layout>
   );
 
-  if (error || !data) return (
+  if ((error || !data) && !staticTour) return (
     <Layout>
       <div className="flex flex-col items-center justify-center min-h-screen gap-4">
         <HiExclamationCircle className="w-12 h-12 text-red-400" />
@@ -78,7 +81,13 @@ export default function TourDetailPage() {
     </Layout>
   );
 
-  const tour = data;
+  // Merge API data with static fallback (API wins if available)
+  const mergedData = data || staticTour;
+  if (!data && staticTour && staticTour.itinerary) {
+    staticTour.itinerary = staticTour.itinerary; // already set
+  }
+
+  const tour = mergedData;
   const images = tour.images && tour.images.length > 0 ? tour.images : [tour.cover_image];
 
   // Resolve includes/excludes — DB fields are `inclusions`/`exclusions`
