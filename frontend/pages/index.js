@@ -113,6 +113,18 @@ const testimonials = [
 
 export default function HomePage() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [showSplash, setShowSplash] = useState(false);
+
+  // Show splash only on the very first visit (session-scoped)
+  useEffect(() => {
+    const seen = sessionStorage.getItem('ws_splash_seen');
+    if (!seen) {
+      setShowSplash(true);
+      sessionStorage.setItem('ws_splash_seen', '1');
+      const t = setTimeout(() => setShowSplash(false), 5000);
+      return () => clearTimeout(t);
+    }
+  }, []);
 
   const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev + 1) % heroSlides.length);
@@ -159,6 +171,39 @@ export default function HomePage() {
         title="WildSmiles — Africa's Premier Tours & Travel Platform"
         description="Discover extraordinary African safaris, gorilla trekking, beach retreats, and cultural adventures. Book with WildSmiles — Africa's most trusted travel platform."
       />
+
+      {/* ─── SPLASH SCREEN ────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-dark"
+          >
+            <motion.div
+              animate={{ scale: [1, 1.08, 1], opacity: [0.85, 1, 0.85] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <Image
+                src="/images/logowild.png"
+                alt="WildSmiles"
+                width={180}
+                height={54}
+                className="w-44 md:w-56 drop-shadow-2xl"
+                priority
+              />
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
+              className="mt-6 text-white/60 text-sm tracking-widest uppercase font-medium"
+            >
+              Africa&apos;s Premier Travel Experience
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ─── HERO SLIDESHOW ───────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">

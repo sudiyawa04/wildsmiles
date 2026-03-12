@@ -200,44 +200,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20 bg-gray-50">
-        <div className="container-wide">
-          <div className="text-center mb-14">
-            <h2 className="font-display font-bold text-4xl text-dark mb-3">Our Journey</h2>
-            <p className="text-gray-500 text-lg">From one desk in Nairobi to Africa's most trusted travel platform.</p>
-          </div>
-          <div className="relative">
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary-100 -translate-x-0.5" />
-            <div className="space-y-8">
-              {milestones.map((m, i) => (
-                <motion.div
-                  key={m.year}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.07 }}
-                  className={`md:flex gap-8 items-start ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                >
-                  {/* Card */}
-                  <div className="flex-1 bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
-                    <span className="inline-block bg-primary-100 text-primary-700 text-xs font-bold px-3 py-1 rounded-full mb-3">{m.year}</span>
-                    <h3 className="font-display font-bold text-lg text-dark mb-2">{m.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{m.desc}</p>
-                  </div>
-                  {/* Center dot */}
-                  <div className="hidden md:flex flex-col items-center flex-shrink-0 w-8">
-                    <div className="w-4 h-4 rounded-full bg-primary-500 ring-4 ring-primary-100 mt-6" />
-                  </div>
-                  {/* Spacer */}
-                  <div className="flex-1 hidden md:block" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Our Team */}
       <section className="py-20 bg-white">
         <div className="container-wide">
