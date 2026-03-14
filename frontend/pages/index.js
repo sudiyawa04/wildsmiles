@@ -161,7 +161,7 @@ export default function HomePage() {
       />
 
       {/* ─── HERO SLIDESHOW ───────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-center justify-center overflow-hidden">
         {/* Slides */}
         <AnimatePresence initial={false}>
           <motion.div
@@ -188,7 +188,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 z-10" />
 
         {/* Content */}
-        <div className="relative z-20 container-wide text-white pt-24 pb-36">
+        <div className="relative z-20 container-wide text-white pt-28 md:pt-24 pb-44 md:pb-36">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSlide + '-content'}
@@ -206,7 +206,7 @@ export default function HomePage() {
               </div>
 
               {/* Headline */}
-              <h1 className="font-display font-black text-4xl md:text-5xl lg:text-6xl leading-none mb-6 max-w-3xl">
+              <h1 className="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight md:leading-none mb-5 md:mb-6 max-w-3xl">
                 {slide.heading.split('\n').map((line, i) => (
                   <span key={i} className="block">
                     {i === 1 ? <span className="text-primary-400">{line}</span> : line}
@@ -215,21 +215,21 @@ export default function HomePage() {
               </h1>
 
               {/* Sub text */}
-              <p className="text-lg md:text-xl text-gray-200 max-w-xl mb-10 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-gray-200 max-w-xl mb-8 md:mb-10 leading-relaxed">
                 {slide.sub}
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-4 mb-12">
+              <div className="flex flex-wrap gap-3 sm:gap-4 mb-10 md:mb-12">
                 <Link
                   href={slide.link}
-                  className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 py-4 rounded-2xl text-base shadow-lg shadow-primary-500/30 transition-all hover:scale-105 hover:shadow-xl"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-primary-500 hover:bg-primary-600 text-white font-bold px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base shadow-lg shadow-primary-500/30 transition-all hover:scale-105 hover:shadow-xl"
                 >
                   {slide.cta} <HiArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
                   href="/tours"
-                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white font-semibold px-8 py-4 rounded-2xl text-base border border-white/30 transition-all"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm text-white font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl text-sm sm:text-base border border-white/30 transition-all"
                 >
                   Browse All Tours
                 </Link>
@@ -242,14 +242,14 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="max-w-3xl"
+            className="max-w-3xl w-full"
           >
             <SearchBar />
           </motion.div>
         </div>
 
         {/* Slide controls */}
-        <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30">
+        <div className="hidden md:block absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30">
           <button
             onClick={prevSlide}
             className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center transition-all hover:scale-110"
@@ -258,7 +258,7 @@ export default function HomePage() {
             <HiChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </div>
-        <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30">
+        <div className="hidden md:block absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30">
           <button
             onClick={nextSlide}
             className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm border border-white/30 text-white flex items-center justify-center transition-all hover:scale-110"
@@ -269,7 +269,7 @@ export default function HomePage() {
         </div>
 
         {/* Slide dots */}
-        <div className="absolute bottom-36 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+        <div className="absolute bottom-40 sm:bottom-36 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
           {heroSlides.map((_, i) => (
             <button
               key={i}

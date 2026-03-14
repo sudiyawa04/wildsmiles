@@ -50,19 +50,19 @@ export default function Navbar() {
           : 'bg-white shadow-md'
       )}
     >
-        <div className="container-wide flex items-center justify-between h-18 md:h-22" style={{height: '96px'}}>
+        <div className="container-wide flex items-center justify-between h-20 md:h-24">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0 min-w-0">
           <Image
             src="/images/logowild.png"
             alt="WildSmiles"
             width={240}
             height={72}
-            className="h-16 md:h-20 w-auto object-contain drop-shadow-md"
+            className="h-14 md:h-20 w-auto object-contain drop-shadow-md"
             priority
           />
-          <div className="hidden sm:flex flex-col leading-tight">
-            <span className={clsx('font-display font-black text-base md:text-lg tracking-tight', transparent ? 'text-white' : 'text-dark')}>WildSmiles</span>
+          <div className="flex flex-col leading-tight min-w-0">
+            <span className={clsx('font-display font-black text-sm sm:text-base md:text-lg tracking-tight truncate', transparent ? 'text-white' : 'text-dark')}>WildSmiles</span>
             <span className={clsx('text-xs font-medium tracking-wide', transparent ? 'text-white/70' : 'text-gray-500')}>Tours &amp; Travel</span>
           </div>
         </Link>
